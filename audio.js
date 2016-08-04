@@ -1,7 +1,5 @@
 var mic = require('mic');
 var fs = require('fs');
-var micInstance = mic({ 'rate': '16000', 'channels': '1', 'debug': true, 'exitOnSilence': 6 })
-var micInputStream = micInstance.getAudioStream();
 var request = require('request');
 var reload = require('require-reload')(require);
 
@@ -9,6 +7,8 @@ var reload = require('require-reload')(require);
 var asr = null;
 
 exports.init = function() {
+    var micInstance = mic({ 'rate': '16000', 'channels': '1', 'debug': true, 'exitOnSilence': 10 })
+    var micInputStream = micInstance.getAudioStream();
     
     micInputStream.on('data', function(data) {
 	console.log("Recieved Input Stream: " + data.length);
@@ -63,3 +63,4 @@ exports.init = function() {
     exports.micInstance= micInstance;
 }
     //micInstance.start();
+// STOP WHEN asr.lastMsg() IS THE SAME TO LOONG
