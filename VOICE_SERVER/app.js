@@ -7,10 +7,12 @@ console.log("MODULE CLLED");
 
 
 var asr;
+var lastMsg = "";
 asr = require('./asr/google/');
 asr.on('data', function (data) {
 //    console.log(JSON.stringify(data));
     try {
+	lastMsg = data.message.result[0].alternative[0].transcript;
 	console.log("CLIENT : "+data.message.result[0].alternative[0].transcript);
     } catch(e) {
 
@@ -36,4 +38,9 @@ var strm = function(data) {
     }
 }
 
+var getLastMsg = function() {
+    return lastMsg;
+}
+
 exports.strm = strm;
+exports.lastMsg = getLastMsg;

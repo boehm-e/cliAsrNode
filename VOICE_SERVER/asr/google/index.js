@@ -1,5 +1,5 @@
 'use strict';
-const KEY = 'AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw';
+var KEY = 'AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw';
 
 var events = require('events'),
     util = require('util'),
