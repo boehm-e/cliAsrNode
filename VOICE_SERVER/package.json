@@ -1,15 +1,10 @@
 {
-  "name": "RogerVoiceASR",
+  "name": "ASR",
   "version": "0.0.1",
-  "description": "RogerVoice ASR (Google ASR, IBM Watson ASR)",
+    "description": "",
   "license": "MIT",
-  "author": {
-    "name": "Bastien LE REST",
-    "email": "bastien@rogervoice.com"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rogervoice/ibm_watson_node"
   },
   "main": "index.js",
   "scripts": {

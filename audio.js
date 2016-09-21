@@ -6,8 +6,12 @@ var reload = require('require-reload')(require);
 
 var asr = null;
 
-exports.init = function() {
-    var micInstance = mic({ 'rate': '16000', 'channels': '1', 'debug': true, 'exitOnSilence': 10 })
+var micInstance = mic({ 'rate': '16000',
+			'channels': 1,
+			'device':'hw:0,0',
+			'debug': true,
+			'exitOnSilence': 10
+		      })
     var micInputStream = micInstance.getAudioStream();
     
     micInputStream.on('data', function(data) {
@@ -20,7 +24,6 @@ exports.init = function() {
     });
 
     micInputStream.on('startComplete', function() {
-	console.log("Got SIGNAL startComplete");
 	asr = reload("./VOICE_SERVER/app.js")
     });
 
@@ -30,37 +33,20 @@ exports.init = function() {
 
     micInputStream.on('pauseComplete', function() {
 	console.log("Got SIGNAL pauseComplete");
-	setTimeout(function() {
-	    micInstance.resume();
-	}, 5000);
     });
 
     micInputStream.on('resumeComplete', function() {
 	console.log("Got SIGNAL resumeComplete");
-	setTimeout(function() {
-	    micInstance.stop();
-	}, 5000);
     });
 
     micInputStream.on('silence', function() {
-	setTimeout(function() {
-	    var req = {
-		q: asr.lastMsg()
-	    }
-	    request.post({
-		url:     'http://localhost:3000/answer',
-		form:    req
-	    });
-
-	    micInstance.stop()
-	    console.log("Got SIGNAL silence");
-	}, 1500)
+	console.log('SILENCE');
     });
 
     micInputStream.on('processExitComplete', function() {
 	console.log("Got SIGNAL processExitComplete");
     });
-    exports.micInstance= micInstance;
-}
-    //micInstance.start();
+    micInstance.start();
 // STOP WHEN asr.lastMsg() IS THE SAME TO LOONG
+
+
